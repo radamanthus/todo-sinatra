@@ -155,9 +155,6 @@ Rails 3 app.</p>
       <td class=code>
         <div class='highlight'><pre>    <span class="n">get</span> <span class="s2">&quot;/lists/:list_id&quot;</span> <span class="k">do</span>
       <span class="vi">@lists</span> <span class="o">=</span> <span class="no">List</span><span class="o">.</span><span class="n">all</span>
-      <span class="nb">puts</span> <span class="s2">&quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&quot;</span>
-      <span class="nb">puts</span> <span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">].</span><span class="n">class</span>
-      <span class="nb">puts</span> <span class="s2">&quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&quot;</span>
       <span class="vi">@selected_list_index</span> <span class="o">=</span> <span class="vi">@lists</span><span class="o">.</span><span class="n">index</span> <span class="p">{</span> <span class="o">|</span><span class="n">l</span><span class="o">|</span> <span class="n">l</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">].</span><span class="n">to_i</span> <span class="p">}</span>
       <span class="n">erb</span> <span class="ss">:show_tasks</span>
     <span class="k">end</span></pre></div>
@@ -180,7 +177,7 @@ Rails 3 app.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>    <span class="n">post</span> <span class="s2">&quot;/lists&quot;</span> <span class="k">do</span>
-      <span class="no">List</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:list</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span><span class="p">)</span>
+      <span class="no">List</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:list</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span><span class="p">)</span>
       <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
     <span class="k">end</span></pre></div>
       </td>
@@ -212,21 +209,30 @@ Rails 3 app.</p>
 any other function.</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="n">post</span> <span class="s2">&quot;/lists/:list_id&quot;</span> <span class="k">do</span>
-      <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:_method</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span>
+        <div class='highlight'><pre>    <span class="n">post</span> <span class="s2">&quot;/lists/:list_id&quot;</span> <span class="k">do</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:_method</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span>
         <span class="no">List</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">destroy</span>
+        <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
       <span class="k">end</span>
-
-      <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
-    <tr id='section-POST_/tasks'>
+    <tr id='section-POST_/lists/:list_id/tasks'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-POST_/tasks">&#182;</a>
+          <a class="pilcrow" href="#section-POST_/lists/:list_id/tasks">&#182;</a>
         </div>
-        <h1>POST /tasks</h1>
+        <h1>POST /lists/:list_id/tasks</h1>
 
 <p>Create a new task with the given name, then return to the correct tab of
 &lsquo;/&rsquo;.</p>
@@ -241,11 +247,10 @@ added.</li>
 </ul>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="n">post</span> <span class="s2">&quot;/tasks&quot;</span> <span class="k">do</span>
-      <span class="vi">@task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">new</span> <span class="n">params</span><span class="o">[</span><span class="ss">:task</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span>
-      <span class="nb">puts</span> <span class="n">params</span><span class="o">[</span><span class="ss">:task</span><span class="o">]</span>
-      <span class="no">List</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:task</span><span class="o">][</span><span class="ss">:list_id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">add_task</span> <span class="vi">@task</span>
-      <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
+        <div class='highlight'><pre>    <span class="n">post</span> <span class="s2">&quot;/lists/:list_id/tasks&quot;</span> <span class="k">do</span>
+      <span class="vi">@task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">create</span> <span class="nb">name</span><span class="p">:</span> <span class="n">params</span><span class="o">[</span><span class="ss">:task</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span>
+      <span class="no">List</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">add_task</span> <span class="vi">@task</span>
+      <span class="n">redirect</span> <span class="s2">&quot;/lists/</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -263,7 +268,7 @@ added.</li>
       <span class="no">List</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">remove_task</span><span class="p">(</span>
         <span class="no">Task</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:task_id</span><span class="o">]</span><span class="p">))</span><span class="o">.</span><span class="n">destroy</span>
 
-      <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
+      <span class="n">redirect</span> <span class="s2">&quot;/lists/</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">end</span></pre></div>
       </td>
     </tr>
@@ -274,8 +279,9 @@ added.</li>
         </div>
         <h1>POST /lists/:list_id/tasks/:task_id</h1>
 
-<p>This is primarily a proxy for browser deletion. It does not currently have
-any other function.</p>
+<p>This endpoint serves the dual purpose of acting as a proxy for the DELETE
+verb in browsers, as well as updating individual tasks acting as the PUT
+verb for updating the task&rsquo;s completion status.</p>
 
       </td>
       <td class=code>
@@ -283,9 +289,16 @@ any other function.</p>
       <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:_method</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;delete&quot;</span>
         <span class="no">List</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">remove_task</span><span class="p">(</span>
           <span class="no">Task</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:task_id</span><span class="o">]</span><span class="p">))</span><span class="o">.</span><span class="n">destroy</span>
+      <span class="k">else</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="no">Task</span><span class="o">.</span><span class="n">find_by_id</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:task_id</span><span class="o">]</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">params</span><span class="o">[</span><span class="ss">:task</span><span class="o">][</span><span class="ss">:done</span><span class="o">]</span>
+          <span class="n">task</span><span class="o">.</span><span class="n">complete!</span>
+        <span class="k">else</span>
+          <span class="n">task</span><span class="o">.</span><span class="n">uncomplete!</span>
+        <span class="k">end</span>
       <span class="k">end</span>
 
-      <span class="n">redirect</span> <span class="s2">&quot;/&quot;</span>
+      <span class="n">redirect</span> <span class="s2">&quot;/lists/</span><span class="si">#{</span><span class="n">params</span><span class="o">[</span><span class="ss">:list_id</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span></pre></div>
