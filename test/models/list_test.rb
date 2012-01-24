@@ -1,19 +1,20 @@
 require "minitest/unit"
 require "minitest/autorun"
 require "minitest/pride"
+require "require_relative" if RUBY_VERSION =~ /1.8/
 require_relative "../../app"
 
 include Todo
 
 class ListTest < MiniTest::Unit::TestCase
   def setup
-    @list = List.new name: "Secret Mission"
+    @list = List.new :name => "Secret Mission"
     current_time = Time.now
     @completed_tasks = (1..4).map do |i|
-      Task.new name: "Completed Task ##{i}", completed_at: current_time
+      Task.new :name => "Completed Task ##{i}", :completed_at => current_time
     end
     @unfinished_tasks = (1..3).map do |i|
-      Task.new name: "Unfinished Task ##{i}"
+      Task.new :name => "Unfinished Task ##{i}"
     end
   end
 

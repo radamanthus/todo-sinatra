@@ -54,7 +54,7 @@ module Todo
     # ## Parameters of `list`.
     # - `name`: The name of the list to create.
     post "/lists" do
-      List.create(name => params[:list][:name])
+      List.create(:name => params[:list][:name])
       redirect "/"
     end
 
@@ -86,7 +86,7 @@ module Todo
     #   added.
     # - `completed`: The truth value of the task's competion status.
     post "/lists/:list_id/tasks" do
-      @task = Task.create( name => params[:task][:name])
+      @task = Task.create :name => params[:task][:name]
       List.find_by_id(params[:list_id]).add_task @task
       redirect "/lists/#{params[:list_id]}"
     end

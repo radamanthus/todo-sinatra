@@ -1,13 +1,14 @@
 require "minitest/unit"
 require "minitest/autorun"
 require "minitest/pride"
+require "require_relative" if RUBY_VERSION =~ /1.8/
 require_relative "../../app"
 
 include Todo
 
 class TaskTest < MiniTest::Unit::TestCase
   def setup
-    @task = Task.new name: "Walk the Pug"
+    @task = Task.new :name => "Walk the Pug"
   end
 
   def test_task_creation
