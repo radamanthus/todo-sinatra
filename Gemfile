@@ -18,7 +18,8 @@ group :production do
 end
 
 group :test, :development do
-  gem "sqlite3"
+  gem "sqlite3", :platforms => :ruby
+  gem "activerecord-jdbcsqlite3-adapter", :platforms => :jruby
 end
 
 group :test do
