@@ -7,9 +7,10 @@ gem "erubis"
 
 platforms :ruby_18, :jruby do
   gem "require_relative"
-  gem "unicorn", "1.1.5"
   gem "rack", "1.4.1"
 end
+
+gem "unicorn", "1.1.5"
 
 
 
