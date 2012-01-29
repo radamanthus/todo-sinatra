@@ -97,6 +97,8 @@ GEM
       trinidad_jars (>= 1.0.1)
     trinidad_jars (1.0.2)
     tzinfo (0.3.31)
+    unicorn (1.1.5)
+      rack
 
 PLATFORMS
   java
@@ -120,3 +122,4 @@ DEPENDENCIES
   sqlite3
   thin
   trinidad
+  unicorn (= 1.1.5)
