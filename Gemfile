@@ -10,9 +10,6 @@ platforms :ruby_18, :jruby do
   gem "rack", "1.4.1"
 end
 
-gem "unicorn", "1.1.5"
-
-
 
 group :production do
   gem "pg", :platforms => :ruby
