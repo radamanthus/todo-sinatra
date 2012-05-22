@@ -13,6 +13,7 @@ end
 
 group :production do
   gem "pg", :platforms => :ruby
+  gem "puma", :platforms => :ruby
   gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby
   gem "trinidad", :platforms => :jruby
 end
