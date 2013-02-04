@@ -12,6 +12,7 @@ end
 
 
 group :production do
+  gem "mysql2", :platforms => :ruby
   gem "pg", :platforms => :ruby
   gem "puma", :platforms => :ruby
   gem "activerecord-jdbcpostgresql-adapter", :platforms => :jruby

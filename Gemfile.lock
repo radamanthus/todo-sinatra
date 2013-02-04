@@ -57,6 +57,7 @@ GEM
     minitest (2.11.0)
     multi_json (1.0.4)
     mustache (0.99.4)
+    mysql2 (0.2.18)
     net-ssh (2.2.2)
     pg (0.12.2)
     pry (0.9.8)
@@ -111,6 +112,7 @@ DEPENDENCIES
   engineyard
   erubis
   minitest
+  mysql2
   pg
   pry
   puma
