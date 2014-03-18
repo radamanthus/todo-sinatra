@@ -116,7 +116,7 @@ DEPENDENCIES
   pg
   pry
   puma
-  rack (= 1.4.1)
+  rack
   rake
   require_relative
   rerun
